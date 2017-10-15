@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM python:2.7.14
 MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -10,14 +10,16 @@ ENV STD_PACKAGES zlibc \
     libssl1.0.0 libbz2-dev libxslt1-dev libxml2-dev python-gevent \
     libcurl4-openssl-dev openssl build-essential curl \
     software-properties-common g++ make
-ENV BIN_PACKAGES python python-pip python-psycopg2 python-dev python-setuptools
+ENV BIN_PACKAGES python-pip python-psycopg2 python-dev python-setuptools
 
 RUN echo "nameserver 8.8.8.8" | tee /etc/resolv.conf > /dev/null
 
 # install apt
 RUN apt-get update && apt-get install -y apt-utils
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    $STD_PACKAGES && apt-get install -y $BIN_PACKAGES && build_deps="curl ca-certificates" && \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends $STD_PACKAGES && \
+    apt-get install -y --no-install-recommends $BIN_PACKAGES && \
+    build_deps="curl ca-certificates" && \
     apt-get update && \
     apt-get install -y --no-install-recommends ${build_deps} && \
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
@@ -44,9 +46,10 @@ RUN npm install -g process-nextick-args util-deprecate isarray core-util-is \
 RUN npm install -g yarn@1.1.0
 RUN yarn global add npm@5.4.2
 
-RUN apt-get purge -y --auto-remove ${build_deps} && \
-    apt-get purge -y --auto-remove $STD_PACKAGES && \
-    apt-get purge -y --auto-remove apt-utils && rm -r /var/lib/apt/lists/*
+RUN apt-get purge -y --auto-remove ${build_deps}
+# && \
+#    apt-get purge -y --auto-remove $STD_PACKAGES && \
+#    apt-get purge -y --auto-remove apt-utils && rm -r /var/lib/apt/lists/*
 
 RUN npm -v && yarn -v
 
