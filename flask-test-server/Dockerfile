@@ -10,7 +10,8 @@ ENV STD_PACKAGES zlibc \
     libssl1.0.0 libbz2-dev libxslt1-dev libxml2-dev python-gevent \
     libcurl4-openssl-dev openssl build-essential curl \
     software-properties-common g++ make
-ENV BIN_PACKAGES python-pip python-psycopg2 python-dev python-setuptools
+ENV BIN_PACKAGES python-pip python-psycopg2 python-dev python-setuptools \
+    openssh-client sshpass
 
 RUN echo "nameserver 8.8.8.8" | tee /etc/resolv.conf > /dev/null
 
@@ -54,5 +55,5 @@ RUN apt-get purge -y --auto-remove ${build_deps}
 RUN npm -v && yarn -v
 
 RUN mkdir /var/stage
-EXPOSE 8000
+EXPOSE 8000 5000 2992
 VOLUME ["/var/stage"]
