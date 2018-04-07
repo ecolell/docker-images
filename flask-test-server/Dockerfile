@@ -45,7 +45,7 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN npm install -g process-nextick-args util-deprecate isarray core-util-is \
     inherits delegates console-control-strings string-width
 RUN npm install -g yarn@1.1.0
-RUN yarn global add npm@5.4.2
+RUN yarn global add npm@5.5.1
 
 RUN apt-get purge -y --auto-remove ${build_deps}
 # && \
