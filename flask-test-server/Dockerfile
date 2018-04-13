@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # nvm environment variables
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 9.3.0
+ENV NODE_VERSION 8.11.1
 ENV STD_PACKAGES zlibc \
     libssl1.0.0 libbz2-dev libxslt1-dev libxml2-dev python-gevent \
     libcurl4-openssl-dev openssl build-essential curl \
@@ -44,8 +44,8 @@ ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 RUN npm install -g process-nextick-args util-deprecate isarray core-util-is \
     inherits delegates console-control-strings string-width
-RUN npm install -g yarn@1.1.0
-RUN yarn global add npm@5.5.1
+RUN npm install -g yarn@1.5.1
+RUN yarn global add npm@5.6.0
 
 RUN apt-get purge -y --auto-remove ${build_deps}
 # && \
