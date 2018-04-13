@@ -5,7 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 # nvm environment variables
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 6.11.0
+ENV NODE_VERSION 9.3.0
 ENV STD_PACKAGES zlibc \
     libssl1.0.0 libbz2-dev libxslt1-dev libxml2-dev python-gevent \
     libcurl4-openssl-dev openssl build-essential curl \
