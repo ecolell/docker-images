@@ -46,13 +46,14 @@ RUN npm install -g process-nextick-args util-deprecate isarray core-util-is \
     inherits delegates console-control-strings string-width
 RUN npm install -g yarn@1.5.1
 RUN yarn global add npm@5.6.0
+RUN npm install v8-profiler@5.7.0
 
 RUN apt-get purge -y --auto-remove ${build_deps}
 # && \
 #    apt-get purge -y --auto-remove $STD_PACKAGES && \
 #    apt-get purge -y --auto-remove apt-utils && rm -r /var/lib/apt/lists/*
 
-RUN npm -v && yarn -v
+RUN npm -v && yarn -v && pip -V
 
 RUN mkdir /var/stage
 EXPOSE 8000 5000 2992
