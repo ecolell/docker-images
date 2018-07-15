@@ -6,6 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 # nvm environment variables
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 8.11.1
+ENV PIP_VERSION 10.0.1
 ENV STD_PACKAGES zlibc \
     libssl1.0.0 libbz2-dev libxslt1-dev libxml2-dev python-gevent \
     libcurl4-openssl-dev openssl build-essential curl \
@@ -34,7 +35,7 @@ RUN /bin/bash -c "source $NVM_DIR/nvm.sh \
     && nvm alias default $NODE_VERSION \
     && nvm use default"
 
-RUN pip install --upgrade pip && \
+RUN pip install --upgrade pip==$PIP_VERSION && \
     easy_install distribute && \
     pip install --upgrade distribute
 
