@@ -35,7 +35,7 @@ RUN /bin/bash -c "source $NVM_DIR/nvm.sh \
     && nvm alias default $NODE_VERSION \
     && nvm use default"
 
-RUN pip install --upgrade pip==$PIP_VERSION && \
+RUN pip install pip==$PIP_VERSION && \
     easy_install distribute && \
     pip install --upgrade distribute
 
