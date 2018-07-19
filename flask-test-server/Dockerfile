@@ -1,4 +1,7 @@
-FROM python:2.7.14
+FROM python:3.7.0
+FROM python:3.6.6
+FROM python:3.5.5
+FROM python:2.7.15
 MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
