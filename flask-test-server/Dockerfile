@@ -1,4 +1,4 @@
-FROM python:2.7.14
+FROM python:3.6.6
 MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -6,9 +6,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 # nvm environment variables
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 8.11.1
-ENV PIP_VERSION 10.0.1
 ENV STD_PACKAGES zlibc \
-    libssl1.0.0 libbz2-dev libxslt1-dev libxml2-dev python-gevent \
+    libssl1.1 libbz2-dev libxslt1-dev libxml2-dev python-gevent \
     libcurl4-openssl-dev openssl build-essential curl \
     software-properties-common g++ make
 ENV BIN_PACKAGES python-pip python-psycopg2 python-dev python-setuptools \
@@ -35,9 +34,9 @@ RUN /bin/bash -c "source $NVM_DIR/nvm.sh \
     && nvm alias default $NODE_VERSION \
     && nvm use default"
 
-RUN pip install pip==$PIP_VERSION && \
-    easy_install distribute && \
-    pip install --upgrade distribute
+RUN pip install pip==10.0.1 \
+    && easy_install distribute \
+    && pip install --upgrade distribute
 
 # add node and npm to path so the commands are available
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
