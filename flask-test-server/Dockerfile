@@ -1,7 +1,4 @@
-FROM python:3.7.0
 FROM python:3.6.6
-FROM python:3.5.5
-FROM python:2.7.15
 MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -10,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV NVM_DIR /usr/local/nvm
 ENV NODE_VERSION 8.11.1
 ENV STD_PACKAGES zlibc \
-    libssl1.0.0 libbz2-dev libxslt1-dev libxml2-dev python-gevent \
+    libssl1.1 libbz2-dev libxslt1-dev libxml2-dev python-gevent \
     libcurl4-openssl-dev openssl build-essential curl \
     software-properties-common g++ make
 ENV BIN_PACKAGES python-pip python-psycopg2 python-dev python-setuptools \
@@ -37,9 +34,9 @@ RUN /bin/bash -c "source $NVM_DIR/nvm.sh \
     && nvm alias default $NODE_VERSION \
     && nvm use default"
 
-RUN pip install --upgrade pip && \
-    easy_install distribute && \
-    pip install --upgrade distribute
+RUN pip install pip==10.0.1 \
+    && easy_install distribute \
+    && pip install --upgrade distribute
 
 # add node and npm to path so the commands are available
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
@@ -49,13 +46,14 @@ RUN npm install -g process-nextick-args util-deprecate isarray core-util-is \
     inherits delegates console-control-strings string-width
 RUN npm install -g yarn@1.5.1
 RUN yarn global add npm@5.6.0
+RUN npm install v8-profiler@5.7.0
 
 RUN apt-get purge -y --auto-remove ${build_deps}
 # && \
 #    apt-get purge -y --auto-remove $STD_PACKAGES && \
 #    apt-get purge -y --auto-remove apt-utils && rm -r /var/lib/apt/lists/*
 
-RUN npm -v && yarn -v
+RUN npm -v && yarn -v && pip -V
 
 RUN mkdir /var/stage
 EXPOSE 8000 5000 2992
