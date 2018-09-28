@@ -1,5 +1,7 @@
-FROM markadams/chromium-xvfb:latest
+FROM debian:stable
 MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
+
+ARG DEBIAN_FRONTEND=noninteractive
 
 # nvm environment variables
 ENV NVM_DIR /usr/local/nvm
@@ -8,7 +10,7 @@ ENV NODE_VERSION 8.11.1
 ENV STD_PACKAGES zlibc \
     libssl1.1 libbz2-dev libxslt1-dev libxml2-dev python-gevent \
     libcurl4-openssl-dev openssl build-essential curl \
-    software-properties-common g++ make
+    software-properties-common g++ make xvfb chromium libpng* xauth
 
 # install apt
 RUN apt-get update && apt-get install -y apt-utils
@@ -37,3 +39,5 @@ RUN npm install -g process-nextick-args util-deprecate isarray core-util-is \
 RUN npm install -g yarn@1.5.1
 RUN yarn global add npm@5.6.0
 RUN npm install v8-profiler@5.7.0
+
+RUN npm -v && yarn -v
