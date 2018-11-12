@@ -1,4 +1,4 @@
-FROM python:3.6.6
+FROM python:2.7.15
 MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -24,6 +24,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y --no-install-recommends ${build_deps} && \
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
+    apt-get update && \
     apt-get install -y --no-install-recommends git-lfs && \
     git lfs install && \
     curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
@@ -34,7 +35,7 @@ RUN /bin/bash -c "source $NVM_DIR/nvm.sh \
     && nvm alias default $NODE_VERSION \
     && nvm use default"
 
-RUN pip install pip==10.0.1 \
+RUN pip install pip==18.1 \
     && easy_install distribute \
     && pip install --upgrade distribute
 
