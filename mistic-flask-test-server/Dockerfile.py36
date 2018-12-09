@@ -21,6 +21,7 @@ RUN wget https://julialang-s3.julialang.org/bin/linux/x64/0.4/julia-0.4.7-linux-
     rm -rf julia-0.4.7-linux-x86_64.tar.gz
 # install MIToS.js inside julia
 RUN julia -e 'Pkg.clone("https://github.com/ecolell/GaussDCA.jl"); Pkg.update(); Pkg.add("MIToS"); Pkg.pin("MIToS", v"1.2.3"); Pkg.update()'
-
+# install psicov
+RUN wget http://bioinfadmin.cs.ucl.ac.uk/downloads/PSICOV/psicov2.c && gcc -m64 -Ofast -march=native -fopenmp psicov2.c -lm -o psicov && chmod u+x psicov && mv psicov /usr/bin/
 
 EXPOSE 4369 5555
