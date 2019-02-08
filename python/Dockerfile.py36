@@ -1,0 +1,7 @@
+FROM python:3.6.6
+MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
+
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
+    apt-get install -y --no-install-recommends git-lfs && \
+    git lfs install && \
+    curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
