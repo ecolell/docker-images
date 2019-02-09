@@ -1,10 +1,12 @@
-FROM ecolell/python:3.7.2 AS python
-RUN pip -V
-
 FROM ecolell/node:8.11.1 AS node
-RUN npm -v && yarn -v
+FROM ecolell/python:3.7.2 AS python
 
 MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
+
+COPY --from=node /usr/local /usr/local
+COPY --from=node /opt /opt
+
+RUN npm -v && yarn -v && pip -V
 
 RUN mkdir /var/stage
 EXPOSE 8000 5000 2992
