@@ -1,0 +1,5 @@
+FROM cypress/base:10
+MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
+
+RUN npm install cypress
+RUN ./node_modules/cypress/bin/cypress install
