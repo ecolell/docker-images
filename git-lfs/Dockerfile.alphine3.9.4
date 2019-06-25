@@ -1,0 +1,7 @@
+FROM alpine:3.9.4
+MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
+
+
+RUN apk add --no-cache git-lfs && \
+    apk add --no-cache bash && \
+    git lfs install
