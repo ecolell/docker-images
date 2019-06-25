@@ -1,7 +1,9 @@
-FROM node:10.16.0
-MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
+FROM ecolell/git-lfs:alpine3.9.4 as gitlfs
+FROM node:10.16.0-alpine as node
+COPY --from=0 /usr/bin /usr/bin
+COPY --from=0 /lib/ld-musl-x86_64.so.1 /lib/
+COPY --from=0 /usr/lib/libpcre2-8.so.0 /usr/lib/
+COPY --from=0 /lib/libz.so.1 /lib/
+COPY --from=0 /lib/libc.musl-x86_64.so.1 /lib/
 
-RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash && \
-    apt-get install -y --no-install-recommends git-lfs && \
-    git lfs install && \
-    curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
+MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
