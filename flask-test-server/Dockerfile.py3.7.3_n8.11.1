@@ -1,0 +1,13 @@
+FROM ecolell/node:8.11.1-alpine3.9.4 AS node
+FROM ecolell/python:3.7.3-alpine3.9.4 AS python
+
+COPY --from=node /usr/lib/* /usr/lib/
+COPY --from=node /usr/local /usr/local
+
+MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
+
+# RUN npm -v && pip -V
+
+RUN mkdir /var/stage
+EXPOSE 8000 5000 2992
+VOLUME ["/var/stage"]
