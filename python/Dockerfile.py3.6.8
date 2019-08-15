@@ -1,4 +1,4 @@
-FROM python:3.7.3-alpine3.9 as python
+FROM python:3.6.8-alpine3.9 as python
 MAINTAINER Eloy Adonis Colell <eloy.colell@gmail.com>
 
 COPY \
@@ -10,5 +10,6 @@ COPY \
 COPY \
     --from=ecolell/git-lfs:alphine3.9.4 \
     /usr/libexec/git-core/* /usr/libexec/git-core/
+    
 
 RUN apk add --update build-base gcc musl-dev postgresql-dev libffi-dev
